@@ -18,8 +18,8 @@ public class VehicleApi {
         vehicles.add(new Vehicle(1L, "BMW","850","black"));
         vehicles.add(new Vehicle(2L, "Ford","Fiesta","white"));
         vehicles.add(new Vehicle(3L, "Fiat","Panda","blue"));
-        vehicles.add(new Vehicle(4L, "Fiat","Panda","blue"));
-        vehicles.add(new Vehicle(5L, "Fiat","Panda","blue"));
+        vehicles.add(new Vehicle(4L, "Polonez","Caro","blue"));
+        vehicles.add(new Vehicle(5L, "Trabant","Polo","blue"));
 
     }
 
@@ -30,14 +30,21 @@ public class VehicleApi {
     }
 
     @RequestMapping(value = "/vehicles/{id}", method = RequestMethod.GET)
-    public Vehicle getVehicleById(@PathVariable Integer id){
-        return vehicles.get(id-1);
+    public Vehicle getVehicleById(@PathVariable int id){
+        return vehicles.get(id);
     }
 
     @RequestMapping(value = "/vehicles/vehicles/{color}", method = RequestMethod.GET)
     public List<Vehicle> getVehicleByColor(@PathVariable String color){
-
-        return vehicles.stream().filter(vehicle -> vehicle.getColor().equals(color)).collect(Collectors.toList());
+            List<Vehicle> colorListVehicle = new ArrayList<>();
+            for(Vehicle vehicle:vehicles){
+                if(vehicle.getColor().equals(color)){
+                    colorListVehicle.add(vehicle);
+                }
+            }
+            if(!colorListVehicle.isEmpty())
+                return colorListVehicle;
+            else    return null;
     }
 
     @RequestMapping(method = RequestMethod.POST)
