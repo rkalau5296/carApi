@@ -31,10 +31,11 @@ public class SimpleEmailService {
 
     private static final String SUBJECT = "New vehicle added to db";
 
-    public void send(final Mail mail){
+    public void send(){
         LOGGER.info("Starting email preparation...");
         try {
-            javaMailSender.send(createMimMessage(mail));
+            javaMailSender.send(createMimMessage(new Mail(adminConfig.getAdminMail(), SUBJECT,
+                    "The vehicle: has been added.")));
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
@@ -51,13 +52,13 @@ public class SimpleEmailService {
         };
     }
 
-    //@After("execution(public void pl.rafal.carapi.car.controller.VehicleApi.addVehicle(vehicle))")
-    public void sendMail(final Vehicle vehicle) {
-        ofNullable(vehicle).ifPresent(email->send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                "The vehicle: "  + vehicle.getBrand()
-                                        + " "
-                                        + vehicle.getModel()
-                                        + "has been added.")));
-
-    }
+//    //@After("execution(public void pl.rafal.carapi.car.controller.VehicleApi.addVehicle(vehicle))")
+//    public void sendMail(final Vehicle vehicle) {
+//        ofNullable(vehicle).ifPresent(email -> send(new Mail(adminConfig.getAdminMail(), SUBJECT,
+//                "The vehicle: "  + vehicle.getBrand()
+//                                        + " "
+//                                        + vehicle.getModel()
+//                                        + "has been added.")));
+//
+//    }
 }
