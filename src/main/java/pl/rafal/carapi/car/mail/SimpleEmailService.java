@@ -29,13 +29,14 @@ public class SimpleEmailService {
     @Autowired
     private AdminConfig adminConfig;
 
-    private static final String SUBJECT = "New vehicle added to db";
+    private static final String SUBJECT = "New film added to db";
 
+    @After("execution( void pl.rafal.carapi.car.controller.FilmController.getFilms())")
     public void send(){
         LOGGER.info("Starting email preparation...");
         try {
             javaMailSender.send(createMimMessage(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                    "The vehicle: has been added.")));
+                    "The film has been added.")));
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
