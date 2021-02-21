@@ -31,7 +31,7 @@ public class SimpleEmailService {
 
     private static final String SUBJECT = "New film added to db";
 
-    @After("execution( void pl.rafal.carapi.car.controller.FilmController.getFilms())")
+    @After("execution( void pl.rafal.carapi.car.service.FilmService.addNewFilm(..))")
     public void send(){
         LOGGER.info("Starting email preparation...");
         try {

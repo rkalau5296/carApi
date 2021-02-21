@@ -43,7 +43,6 @@ public class FilmService {
 
     public void addNewFilm(Film film) {
         films.add(film);
-        emailService.send();
     }
 
 }
